@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8' />
+    <title>Otter prototype</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.css' rel='stylesheet' />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+
+      <style>
+        #menu {
+          position: absolute;
+	  bottom: 10px;
+          right: 50px;
+          background: #fff;
+          padding: 10px;
+          font-family: 'Open Sans', sans-serif;
+        }
+        .mapboxgl-popup-close-button {
+			  display: none;
+			}
+        .mapboxgl-popup-content {
+			  font: 400 15px/22px 'Source Sans Pro', 'Helvetica Neue', Sans-serif;
+			  padding: 0;
+			  width: 300px;
+        		  max-height: 250px;
+        		  overflow: auto;
+			}
+        .mapboxgl-popup-content-wrapper {
+        	padding: 1%;
+        }
+        .mapboxgl-popup-content h3 {
+			  background: #a01c84;
+			  color: #fff;
+			  margin: 0;
+			  display: block;
+			  padding: 10px;
+			  border-radius: 3px 3px 0 0;
+			  font-weight: 600;
+			  margin-top: 0px;
+			}
+		.mapboxgl-popup-content h4 {
+			  margin: 0;
+			  display: block;
+			  padding: 5px;
+			  font-weight: 400;
+			}
+		.mapboxgl-popup-content div {
+			  padding: 10px;
+			}
+		.mapboxgl-popup-anchor-top > .mapboxgl-popup-content {
+		  margin-top: 15px;
+		}
+		.mapboxgl-popup-anchor-top > .mapboxgl-popup-tip {
+		  border-bottom-color: #a01c84;
+		}
+      </style>
+
+    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v3.1.6/mapbox-gl-geocoder.min.js'></script>
+    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v3.1.6/mapbox-gl-geocoder.css' type='text/css' />
+
+    <div id='map'></div>
+
+    <script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoienN0YXRtYW53ZWlsIiwiYSI6ImNqbWY3b3V2cjAyMWUzcXBmNXRzdHNnOWEifQ.E-JUGH3ab30ya_NXealg_A'; // replace this with your access token
+    // Set bounds
+    var bounds = [
+    [-167.695312, 17.644022], // Southwest coordinates
+    [-41.132815, 74.683250]  // Northeast coordinates
+    ];
+    // Initialize map
+    var map = new mapboxgl.Map({
+      attributionControl: false,
+      container: 'map',
+      style: 'mapbox://styles/mapbox/light-v10', // replace this with your style URL
+      center: [-121.500,38.304],
+      zoom: 6.8,
+      maxBounds: bounds // Sets bounds as max
+    });
+    var hoverdStateID = null;
+    map.addControl(new mapboxgl.AttributionControl({
+        compact: true
+    }));
+    //Add Geocoder
+    map.addControl(new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+	// limit results to United States
+	countries: 'us',
+	// further limit results to the geographic bounds representing the United States
+	bbox: [-171.791110603, 18.91619, -66.96466, 71.3577635769],
+ 
+	// apply a client side filter to further limit results to those strictly within the United States
+	filter: function (item) {
+	// returns true if item contains United States region
+		return item.context.map(function (i) {
+	// id is in the form {index}.{id} per https://github.com/mapbox/carmen/blob/master/carmen-geojson.md
+	// this example attempts to find the `country` named `United States`
+		return (i.id.split('.').shift() === 'country' && i.text === 'United States');
+		}).reduce(function (acc, cur) {
+		return acc || cur;
+    		})}
+	}));
+    // Add zoom and rotation controls to the map.
+    map.addControl(new mapboxgl.NavigationControl());
+      function mapReset() {
+    }
+    map.on('style.load', function() {
+      mapReset();
+      map.addSource("houses", {
+          type: 'geojson',
+          data: 'https://raw.githubusercontent.com/Geo-Corps/otter_map/master/otters.geojson',
+      });
+      map.addLayer({
+          id: "unclustered-point",
+          type: "circle",
+          source: "houses",
+          paint: {
+              "circle-color": "#676d5f",
+              "circle-radius": 4,
+              "circle-stroke-width": 1,
+              "circle-stroke-color": "#fff"
+          }
+      });
+
+      // Change the cursor to a pointer when the mouse is over the unclustered-point layer.
+      map.on('mouseenter', 'unclustered-point', function () {
+          map.getCanvas().style.cursor = 'pointer';
+      });
+      // Change it back to a pointer when it leaves.
+      map.on('mouseleave', 'unclustered-point', function () {
+          map.getCanvas().style.cursor = '';
+      });
+  // Add popups
+      map.on('click', 'unclustered-point', function (e) {
+          var coordinates = e.features[0].geometry.coordinates.slice();
+          var description = e.features[0].properties.Description;
+          var notes = e.features[0].properties.Notes;
+          // Ensure that if the map is zoomed out such that multiple
+          // copies of the feature are visible, the popup appears
+          // over the copy being pointed to.
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+              coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+        //var features = feature[0];
+        var markerHeight = 20, markerRadius = 10, linearOffset = 25;
+	var popupOffsets = {
+	 'top': [0, 0],
+	 'top-left': [0,0],
+	 'top-right': [0,0],
+	 'bottom': [0, -markerHeight],
+	 'bottom-left': [linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
+	 'bottom-right': [-linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
+	 'left': [markerRadius, (markerHeight - markerRadius) * -1],
+	 'right': [-markerRadius, (markerHeight - markerRadius) * -1]
+	 };
+      new mapboxgl.Popup({offset: popupOffsets})
+      .setLngLat(coordinates)
+      .setHTML('<h3>Aaron\'s Crib:</h3>' + '<h4>Address:<h4>'+ description + '<h4>Roomies:<h4>' +  notes)
+      .addTo(map);
+    });
+  });
+    </script>
+</body>
+</html>
