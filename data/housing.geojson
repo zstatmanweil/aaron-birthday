@@ -1,0 +1,11 @@
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Start": "8\/16\/1989", "Address": "71 Lomita Drive, Mill Valley, CA 94941", "Roommates": "Barbara Strick \/ Larry Strick", "Long": -122.52266, "Lat": 37.90705 }, "geometry": { "type": "Point", "coordinates": [ -122.52266, 37.90705 ] } },
+{ "type": "Feature", "properties": { "Start": "6\/1\/2013", "Address": "1885 Turk St, San Francisco 94115", "Roommates": "Ben Slater", "Long": -122.44011, "Lat": 37.77936 }, "geometry": { "type": "Point", "coordinates": [ -122.44011, 37.77936 ] } },
+{ "type": "Feature", "properties": { "Start": "12\/1\/2014", "Address": "85 Richland Ave, San Francisco 94110", "Roommates": "Ben Slater \/ Toby Silverman \/ Emily Bell \/ Abigail Readey \/ JJ Bruno \/ Talia Smith", "Long": -122.42172, "Lat": 37.73586 }, "geometry": { "type": "Point", "coordinates": [ -122.42172, 37.73586 ] } },
+{ "type": "Feature", "properties": { "Start": "4\/1\/2017", "Address": "1250 63rd St, Emeryville 94608", "Roommates": "Cooper Rogers \/ Cora Lautze \/ Emily Dubin \/ Pancho Kachingwe", "Long": -122.28746, "Lat": 37.84511 }, "geometry": { "type": "Point", "coordinates": [ -122.28746, 37.84511 ] } },
+{ "type": "Feature", "properties": { "Start": "11\/1\/2017", "Address": "1620 Russell Street, Berkeley 94703", "Roommates": "Ben Slater \/ Molly Rose Williams \/ Swen Hendrickson \/ Noa Kornbluh", "Long": -122.27612, "Lat": 37.85517 }, "geometry": { "type": "Point", "coordinates": [ -122.27612, 37.85517 ] } },
+{ "type": "Feature", "properties": { "Start": "5\/1\/2019", "Address": "59 Landers St, San Francisco 94114", "Roommates": "Lucy Rose Taylor", "Long": -122.42763, "Lat": 37.76687 }, "geometry": { "type": "Point", "coordinates": [ -122.42763, 37.76687 ] } }
+]
+}

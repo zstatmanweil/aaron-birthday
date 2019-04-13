@@ -118,7 +118,10 @@
     map.addControl(new mapboxgl.NavigationControl());
       function mapReset() {
     }
-    map.on('style.load', function() {
+    map.loadImage('https://avatars3.githubusercontent.com/u/7566896?s=400&v=4', function(error, image) {
+        if (error) throw error;
+        map.addImage('aaron', image);
+    map.on('load', function() {
       mapReset();
       map.addSource("houses", {
           type: 'geojson',
@@ -126,15 +129,15 @@
       });
       map.addLayer({
           id: "unclustered-point",
-          type: "circle",
+          type: "symbol",
           source: "houses",
-          paint: {
-              "circle-color": "#676d5f",
-              "circle-radius": 4,
-              "circle-stroke-width": 1,
-              "circle-stroke-color": "#fff"
-          }
+          layout: {
+                "icon-image": "aaron",
+                "icon-size": 0.25
+                }
       });
+    });
+    
 
       // Change the cursor to a pointer when the mouse is over the unclustered-point layer.
       map.on('mouseenter', 'unclustered-point', function () {
