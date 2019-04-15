@@ -157,7 +157,9 @@
                 }
       });
     });
-    
+
+    var popup;
+                
 
     // Change the cursor to a pointer when the mouse is over the points layer.
     map.on('mouseenter', 'points', function () {
@@ -166,9 +168,13 @@
     // Change it back to a pointer when it leaves.
     map.on('mouseleave', 'points', function () {
         map.getCanvas().style.cursor = '';
+        console.log(popup)
+        if (popup !== undefined) {
+          popup.remove();
+        }
     });
     // Add popups
-    map.on('click', 'points', function (e) {
+    map.on('mouseenter', 'points', function (e) {
         var coordinates = e.features[0].geometry.coordinates.slice();
         var address = e.features[0].properties.Address;
         var roommates = e.features[0].properties.Roommates;
@@ -180,23 +186,24 @@
         while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
         }
-    //var features = feature[0];
-    var markerHeight = 20, markerRadius = 10, linearOffset = 25;
-	var popupOffsets = {
-	 'top': [0, 0],
-	 'top-left': [0,0],
-	 'top-right': [0,0],
-	 'bottom': [0, -markerHeight],
-	 'bottom-left': [linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
-	 'bottom-right': [-linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
-	 'left': [markerRadius, (markerHeight - markerRadius) * -1],
-	 'right': [-markerRadius, (markerHeight - markerRadius) * -1]
-	 };
-      new mapboxgl.Popup({offset: popupOffsets})
-      .setLngLat(coordinates)
-      .setHTML('<h3>Aaron\'s Crib:</h3>' + '<h4><strong>Move-in date:<strong><h4>' + start + '<h4><strong>Address:<strong><h4>'+ address + '<h4><strong>Roomies:<strong><h4>' +  roommates)
-      .addTo(map);
-    });
-    </script>
+        //var features = feature[0];
+        var markerHeight = 20, markerRadius = 10, linearOffset = 25;
+        var popupOffsets = {
+        'top': [0, 0],
+        'top-left': [0,0],
+        'top-right': [0,0],
+        'bottom': [0, -markerHeight],
+        'bottom-left': [linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
+        'bottom-right': [-linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
+        'left': [markerRadius, (markerHeight - markerRadius) * -1],
+        'right': [-markerRadius, (markerHeight - markerRadius) * -1]
+        };
+
+        popup = new mapboxgl.Popup({offsets: popupOffsets});
+        popup.setLngLat(coordinates);
+        popup.setHTML('<h3>Aaron\'s Crib:</h3>' + '<h4><strong>Move-in date:<strong><h4>' + start + '<h4><strong>Address:<strong><h4>'+ address + '<h4><strong>Roomies:<strong><h4>' +  roommates);
+        popup.addTo(map);
+          });
+          </script>
 </body>
 </html>
