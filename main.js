@@ -23,6 +23,8 @@ map.addControl(new mapboxgl.AttributionControl({
 // Add zoom and rotation controls to the map.
 map.addControl(new mapboxgl.NavigationControl());
 
+function mapReset() {}
+
 map.loadImage('img/face.png', function(error, image) {
     if (error) throw error;
     map.addImage('aaron', image);
