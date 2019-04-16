@@ -27,12 +27,12 @@ function mapReset() {}
 
 map.loadImage('img/face.png', function(error, image) {
     if (error) throw error;
-    map.addImage('aaron', image);
+    map.addImage('aaron-face', image);
 });
 
 map.loadImage('img/lucy.png', function(error, image) {
     if (error) throw error;
-    map.addImage('lucy', image);
+    map.addImage('cute-couple', image);
 });
 
 map.on('load', function() {
@@ -48,20 +48,13 @@ map.on('load', function() {
         layout: {
             "icon-image": ["case",
                            ["==",
-                            ["get", "Roommates"],
-                            "Lucy Rose Taylor"
+                            ["get", "id"],
+                            "landers"
                            ],
-                           "lucy",
-                           "aaron"
+                           "cute-couple",
+                           "aaron-face"
                           ],
-            "icon-size": ["case",
-                          ["==",
-                           ["get", "Roommates"],
-                           "Lucy Rose Taylor"
-                          ],
-                          .25,
-                          .25
-                         ]
+            "icon-size": .25
         }
     });
 });
