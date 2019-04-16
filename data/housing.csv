@@ -1,7 +1,7 @@
-Start,Address,Roommates,Long,Lat
-8/16/1989,"91 Lomita Drive, Mill Valley, CA 94941",Barbara Strick / Larry Strick,-122.52266,37.90705
-6/1/2013,"1885 Turk St, San Francisco 94115",Ben Slater,-122.44011,37.77936
-12/1/2014,"85 Richland Ave, San Francisco 94110",Ben Slater / Toby Silverman / Emily Bell / Abigail Readey / JJ Bruno / Talia Smith,-122.42172,37.73586
-4/1/2017,"1250 63rd St, Emeryville 94608",Cooper Rogers / Cora Lautze / Emily Dubin / Pancho Kachingwe,-122.28746,37.84511
-11/1/2017,"1620 Russell Street, Berkeley 94703",Ben Slater / Molly Rose Williams / Swen Hendrickson / Noa Kornbluh,-122.27612,37.85517
-5/1/2019,"59 Landers St, San Francisco 94114",Lucy Rose Taylor,-122.42763,37.76687
+id,Start,Address,Roommates,Long,Lat
+lomita,8/16/1989,"91 Lomita Drive, Mill Valley, CA 94941",Barbara / Larry / Derek,-122.52266,37.90705
+turk,6/1/2013,"1885 Turk St, San Francisco 94115",Slater,-122.44011,37.77936
+richland,12/1/2014,"85 Richland Ave, San Francisco 94110",Slater / Toby / Emily / Abigail / JJ / Talia,-122.42172,37.73586
+coopers,4/1/2017,"1250 63rd St, Emeryville 94608",Cooper / Cora / Erica / Pancho,-122.28746,37.84511
+slaters,11/1/2017,"1620 Russell Street, Berkeley 94703",Slater / Molly / Swen / Noa,-122.27612,37.85517
+landers,5/1/2019,"59 Landers St, San Francisco 94114",Lucy Rose Taylor ❤,-122.42763,37.76687
