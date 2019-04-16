@@ -73,7 +73,7 @@ map.on('mouseenter', 'points', function () {
 // Change it back to a pointer when it leaves.
 map.on('mouseleave', 'points', function () {
     map.getCanvas().style.cursor = '';
-    console.log(popup)
+
     if (popup !== undefined) {
         popup.remove();
     }
