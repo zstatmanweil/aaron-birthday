@@ -146,3 +146,5 @@ map.on('mouseenter', 'points', function (e) {
     popup.setHTML(html);
     popup.addTo(map);
 });
+
+console.log("%cLike this website? Checkout https://twitter.com/zboknows", "font-size: 20px; color: DeepPink;")
