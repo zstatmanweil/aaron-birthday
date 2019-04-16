@@ -11,7 +11,7 @@ var map = new mapboxgl.Map({
     attributionControl: false,
     container: 'map',
     style: 'mapbox://styles/mapbox/light-v10', // replace this with your style URL
-    center: [ -122.368135,37.864116],
+    center: [ -122.368135, 37.864116 ],
     zoom: 9,
     maxBounds: bounds // Sets bounds as max
 });
@@ -72,6 +72,7 @@ var popup;
 map.on('mouseenter', 'points', function () {
     map.getCanvas().style.cursor = 'pointer';
 });
+
 // Change it back to a pointer when it leaves.
 map.on('mouseleave', 'points', function () {
     map.getCanvas().style.cursor = '';
@@ -80,6 +81,7 @@ map.on('mouseleave', 'points', function () {
         popup.remove();
     }
 });
+
 // Add popups
 map.on('mouseenter', 'points', function (e) {
     var coordinates = e.features[0].geometry.coordinates.slice();
