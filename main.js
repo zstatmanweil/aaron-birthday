@@ -15,15 +15,14 @@ var map = new mapboxgl.Map({
     zoom: 9,
     maxBounds: bounds // Sets bounds as max
 });
-var hoverdStateID = null;
+
 map.addControl(new mapboxgl.AttributionControl({
     compact: true
 }));
 
 // Add zoom and rotation controls to the map.
 map.addControl(new mapboxgl.NavigationControl());
-function mapReset() {
-}
+
 map.loadImage('img/face.png', function(error, image) {
     if (error) throw error;
     map.addImage('aaron', image);
