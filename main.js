@@ -82,7 +82,7 @@ function splitRoommates(roommmates) {
 }
 
 function makeLi(roommate) {
-    return '<li>' + roommate + '</li>';
+    return '<li>' + roommate + '!</li>';
 }
 
 function makeRoommateUl(roommateList) {
