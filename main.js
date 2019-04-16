@@ -25,12 +25,12 @@ map.addControl(new mapboxgl.NavigationControl());
 
 function mapReset() {}
 
-map.loadImage('img/face.png', function(error, image) {
+map.loadImage('/img/face.png', function(error, image) {
     if (error) throw error;
     map.addImage('aaron-face', image);
 });
 
-map.loadImage('img/lucy.png', function(error, image) {
+map.loadImage('/img/lucy.png', function(error, image) {
     if (error) throw error;
     map.addImage('cute-couple', image);
 });
@@ -39,7 +39,7 @@ map.on('load', function() {
     mapReset();
     map.addSource("houses", {
         type: 'geojson',
-        data: './data/housing.geojson',
+        data: '/data/housing.geojson',
     });
     map.addLayer({
         id: "points",
@@ -63,7 +63,8 @@ var popup;
 
 // Change the cursor to a pointer when the mouse is over the points layer.
 map.on('mouseenter', 'points', function () {
-    map.getCanvas().style.cursor = 'pointer';
+    map.getCanvas().style.cursor = 'pointer'
+    $('.map-overlay').remove();
 });
 
 // Change it back to a pointer when it leaves.
