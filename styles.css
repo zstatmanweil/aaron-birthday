@@ -22,7 +22,11 @@ body {
     background-color: #fff;
     top: 24px;
     max-width: 500px;
-    text-align: center;
+}
+
+#welcome h1 {
+    margin: 0;
+    text-align: center
 }
 
 .map-overlay {
