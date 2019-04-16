@@ -110,6 +110,16 @@ map.on('mouseenter', 'points', function (e) {
 
     popup = new mapboxgl.Popup({offsets: popupOffsets});
     popup.setLngLat(coordinates);
-    popup.setHTML('<h3>Aaron\'s Crib:</h3>' + '<h4><strong>Move-in date:<strong><h4>' + start + '<h4><strong>Address:<strong><h4>'+ address + '<h4><strong>Roomies:<strong><h4>' +  roommates);
+
+    var html = '';
+    html += '<h3>Aaron\'s Crib:</h3>'
+    html += '<h4><strong>Move-in date:<strong><h4>'
+    html += start
+    html += '<h4><strong>Address:<strong><h4>'
+    html += address
+    html += '<h4><strong>Roomies:<strong><h4>'
+    html += roommates
+
+    popup.setHTML(html);
     popup.addTo(map);
 });
