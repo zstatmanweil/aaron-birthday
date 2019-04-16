@@ -113,8 +113,7 @@ function generateHtml(start, address, roommates) {
     return html;
 }
 
-// Add popups
-map.on('mouseenter', 'points', function (e) {
+function handler(e) {
     var coordinates = e.features[0].geometry.coordinates.slice();
     var address = e.features[0].properties.Address;
     var roommates = e.features[0].properties.Roommates;
@@ -145,6 +144,9 @@ map.on('mouseenter', 'points', function (e) {
     var html = generateHtml(start, address, roommates);
     popup.setHTML(html);
     popup.addTo(map);
-});
+}
+// Add popups
+map.on('mouseenter', 'points', handler);
+map.on('click', 'points', handler);
 
 console.log("%cLike this website? Checkout https://twitter.com/zboknows", "font-size: 20px; color: DeepPink;")
