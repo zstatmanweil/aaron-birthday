@@ -82,6 +82,44 @@ map.on('mouseleave', 'points', function () {
     }
 });
 
+function splitRoommates(roommmates) {
+    return roommmates.split('/').map(function(name){
+        return name.trim();
+    });
+}
+
+function makeLi(roommate) {
+    return '<li>' + roommate + '</li>';
+}
+
+function makeRoommateUl(roommateList) {
+    var ul = "<ul>";
+    roommateList.forEach(function(roommate) {
+        ul += makeLi(roommate);
+    });
+
+    return ul;
+}
+
+function generateHtml(start, address, roommates) {
+    var html = '';
+    html += '<h3>Aaron\'s Crib:</h3>';
+    html += '<div>';
+    html += '  <h4>Move-in date:</h4>';
+    html += '  <p>';
+    html +=      start;
+    html += '  </p>';
+    html += '  <h4>Address:</h4>';
+    html += '  <p>';
+    html +=      address;
+    html += '  </p>';
+    html += '  <h4>Roomies:</h4>';
+    html +=    makeRoommateUl( splitRoommates(roommates) );
+    html += '</div>';
+
+    return html;
+}
+
 // Add popups
 map.on('mouseenter', 'points', function (e) {
     var coordinates = e.features[0].geometry.coordinates.slice();
@@ -111,15 +149,7 @@ map.on('mouseenter', 'points', function (e) {
     popup = new mapboxgl.Popup({offsets: popupOffsets});
     popup.setLngLat(coordinates);
 
-    var html = '';
-    html += '<h3>Aaron\'s Crib:</h3>'
-    html += '<h4><strong>Move-in date:<strong><h4>'
-    html += start
-    html += '<h4><strong>Address:<strong><h4>'
-    html += address
-    html += '<h4><strong>Roomies:<strong><h4>'
-    html += roommates
-
+    var html = generateHtml(start, address, roommates);
     popup.setHTML(html);
     popup.addTo(map);
 });
